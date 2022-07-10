@@ -9,12 +9,51 @@
   <title>Document</title>
 </head>
 <body class="bg-light">
-  <div class="container w-75">
-    <h1 class="text-center text-info my-4">TODO</h1>
-    <form id="form" class="mb-4">
-      <input type="text" id="input" class="form-control" placeholder="TODOを入力してください" autocomplete="off">
-    </form>
-    <ul class="list-groupe text-secondary" id="ul"></ul>
+  <div class="container w-70">
+    <h1 class="text-center text-info my-4">TODO APP</h1>
+    <div class="form">
+      <form>
+        <input type="text" id="input" class="form-container" placeholder="TODOを入力してください" autocomplete="off">
+        <button id="add-btn" type="submit">追加</button>
+      </form>
+    </div>
+    <div id="count-container">
+      <span id="todo-items-count-container">TODO: 
+        <span id="todo-items-count"></span>
+      </span>
+      <br>
+      <span id="done-items-count-container">DONE:
+        <span id="done-items-count"></span>
+      </span>
+    </div>
+    
+    <div class="todo-container">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">TODO</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="todos-tbody">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="done-container">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Done</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="dones-tbody">
+        </tbody>
+      </table>
+    </div>
   </div>
   <script src="index.js"></script>
 </body>
