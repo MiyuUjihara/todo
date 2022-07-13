@@ -13,7 +13,7 @@
 #count-container {
   width: 20%;
   margin: 10px auto;
-  border: 2px solid #b2b2b2;
+  border: 2px solid #f2efef;
   border-radius: 3px;
   text-align: center;
 }
@@ -28,18 +28,9 @@
   min-height: 200px;
   margin: 0 auto;
   margin-top: 5px;
-  background-color: rgba(214, 208, 208, 0.501);
+  background-color: rgba(202, 226, 241, 0.501);
   border-radius: 3px;
 }
-
-/* .todo-list-groupe, .done-list-groupe {
-  width: 80%;
-  min-height: 200px;
-  margin: 0 auto;
-  margin-top: 5px;
-  background-color: rgba(214, 208, 208, 0.501);
-  border-radius: 3px;
-} */
 
 .list-title {
   text-align: center;

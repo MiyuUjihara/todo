@@ -14,20 +14,36 @@ const doneList = document.getElementById("dones-tbody");
 const todoItemsCount = document.getElementById("todo-items-count");
 const doneItemsCount = document.getElementById("done-items-count");
 
-// 追加ボタンをクリックした時、add関数を呼び出す
-addButton.addEventListener("click", function (event) {
-  event.preventDefault();
+// localStrageのデータを取得し表示
+const todoTextDatas = JSON.parse(localStorage.getItem("todos"));
+
+const datalist = [];
+
+// 追加ボタンをクリックした時createTodoElement関数を呼び出す
+addButton.addEventListener("click", function (e) {
+  e.preventDefault();
+
   const todoText = inputTodo.value;
+
   if (todoText && todoText.match(/\S/g)) {
 
-    // レコードを親要素に追加
-    todoList.appendChild(createTodoElement(todoText)); 
+    if ((todoTextDatas.concat(datalist)).map((t) => t.text).includes(todoText)) {
+      window.alert("すでに登録されているTODOです");
+    } else {
+      // レコードを親要素に追加
+      todoList.appendChild(createTodoElement(todoText)); 
 
-    // 入力を空
-    inputTodo.value = "";
+      datalist.push({text: todoText})
   
-    // todoの件数を取得
-    getAllTodoItems(); 
+      // 入力を空
+      inputTodo.value = "";
+    
+      // todoの件数を取得
+      getAllTodoItems(); 
+  
+      // LocalStrageにデータを追加
+      saveData();
+    }
   }
 });
 
@@ -35,10 +51,11 @@ addButton.addEventListener("click", function (event) {
 const createTodoElement = (todoText) => {
 
   // 1レコード
-  const tr = document.createElement("tr");
+  const todosColumn = document.createElement("tr");
 
   // todo
   const todoElement = document.createElement("td");
+  todoElement.classList.add("todo-column");
   todoElement.textContent = todoText;
 
   // done
@@ -52,34 +69,66 @@ const createTodoElement = (todoText) => {
   deleteElement.setAttribute("id", "del-btn");
 
   // レコード各要素append
-  tr.appendChild(todoElement);
-  tr.appendChild(doneElement);
-  tr.appendChild(deleteElement);
+  todosColumn.appendChild(todoElement);
+  todosColumn.appendChild(doneElement);
+  todosColumn.appendChild(deleteElement);
 
   // doneボタンが押されたら取り消し線をつける
   doneElement.addEventListener("click", function () {
     console.log("doneBtnを押しました");
     todoElement.classList.add("strikethrough");
+    saveData();
   })
 
   // deleteボタンを押した時todoリストから削除する
   deleteElement.addEventListener("click", function () {
-    todoList.removeChild(tr);
+    todoList.removeChild(todosColumn);
+    console.log(todoElement.textContent);
+    saveData();
     getAllTodoItems();
   }) 
+  
 
-  return tr;
+  return todosColumn;
 };
 
 // todoの総件数を表示させる関数
-const getAllTodoItems = function () {
+const getAllTodoItems = () => {
   todoItemsCount.innerText = `${todoList.childElementCount}件`;
 }
 
 // doneの総件数を表示させる関数
-const getAllDoneItems = function () {
+const getAllDoneItems = () => {
   doneItemsCount.innerText = `${doneList.childElementCount}件`;
 } 
 
+// LocalStorageにデータを保存
+const saveData = () => {
+  const todoListDatas = document.querySelectorAll(".todo-column");
+  const todos = [];
+
+  todoListDatas.forEach((todoListData, index) => {
+    let uncompletedTodo = {
+      id: index,
+      text: todoListData.innerText,
+      status: "uncompleted"
+    }
+
+    todos.push(uncompletedTodo);
+  });
+
+  localStorage.setItem("todos", JSON.stringify(todos));
+  console.log(todos);
+}
+
+const setData = () => {
+  if (todoTextDatas) {
+    todoTextDatas.forEach(todoTextData => {
+      todoList.appendChild(createTodoElement(todoTextData.text)); 
+    });
+  }
+}
+
+setData();
 getAllTodoItems();
 getAllDoneItems();
