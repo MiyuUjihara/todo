@@ -24,7 +24,7 @@
 }
 
 .todo-container, .done-container {
-  width: 80%;
+  width: 70%;
   min-height: 200px;
   margin: 0 auto;
   margin-top: 5px;
@@ -36,9 +36,16 @@
   text-align: center;
 }
 
-#done-btn, #del-btn {
+.todo-column, .done-column {
+  max-height: 30px;
+  max-width: 400px;
+  overflow-wrap:  break-word;
+}
+
+#done-btn, #del-btn, #back-btn {
   cursor: pointer;
   color: rgb(241, 55, 55);
+  width: 100px;
 }
 
 .strikethrough {
