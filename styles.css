@@ -36,7 +36,7 @@
   text-align: center;
 }
 
-.todo-column, .done-column {
+.todo-text, .done-text {
   max-height: 30px;
   max-width: 400px;
   overflow-wrap:  break-word;
