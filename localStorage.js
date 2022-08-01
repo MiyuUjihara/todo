@@ -1,33 +1,27 @@
-let storageData = {};
-// storageData.key = 'todoList';
+// IDの初期値
+let id = 0;
 
-// ローカルストレージに追加する関数
-addStorageData= function(todo) {
+// localStorageに追加
+addStorageData = (todo) => {
   let list = getStorageData();
   list.push(todo);
   localStorage.setItem('todoList', JSON.stringify(list));
   id += 1;
-  // 最新データにdataオブジェクトを更新
-  data = getStorageData();
+
+  // 最新データに更新
+  datas = getStorageData();
+  console.log(datas);
 };
 
-// ローカルストレージを取得する関数
-getStorageData = function() {
+
+// localStorageを取得
+getStorageData = () => {
   let list = localStorage.getItem('todoList');
-
-  if (list == null) {
-    return [];
-  } else {
-    return JSON.parse(list);
-  };
+  return list == null ? [] : JSON.parse(list);
 };
 
-// ローカルストレージからオブジェクトを作成
-let data = getStorageData();
+// localStorageからオブジェクトを作成
+let datas = getStorageData();
 
-// IDの初期値
-let id = 0;
-// 既にデータがあったら最後のデータの次のIDをセット
-if(data.length > 0) {
-  id = data.slice(-1)[0].id + 1;
-};
+// 既にデータが存在していたら最後のデータの次のIDをセット
+if(datas.length) {id = datas[datas.length -1].id + 1};
